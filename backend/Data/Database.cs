@@ -11,6 +11,8 @@ public class Database : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<UserProfile> UserProfiles { get; set; }
+    public DbSet<CalendarAccount> CalendarAccounts { get; set; }
+    public DbSet<CalendarEvent> CalendarEvents { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

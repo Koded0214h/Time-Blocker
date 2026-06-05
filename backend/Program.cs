@@ -1,6 +1,7 @@
 using backend.Data;
 using backend.Services;
 using Microsoft.EntityFrameworkCore;
+using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -42,6 +43,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+DotNetEnv.Env.Load();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
