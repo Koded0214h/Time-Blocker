@@ -10,6 +10,7 @@ public class Database : DbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<UserProfile> UserProfiles { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -31,5 +32,21 @@ public class Database : DbContext
             .Property(u => u.Email)
             .IsRequired()
             .HasMaxLength(100);
+        // Configure UserProfile
+        modelBuilder.Entity<UserProfile>()
+            .HasOne(up => up.User)
+            .WithOne(u => u.UserProfile)
+            .HasForeignKey<UserProfile>(up => up.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+        // Store TimeZone as string
+        modelBuilder.Entity<UserProfile>()
+            .Property(up => up.TimeZoneId)
+            .IsRequired()
+            .HasMaxLength(100);
+        // Store Occupation as string (enum conversion)
+        modelBuilder.Entity<UserProfile>()
+            .Property(up => up.Occupation)
+            .HasConversion<string>()
+            .HasMaxLength(30);
     }
 }

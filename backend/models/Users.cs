@@ -20,10 +20,10 @@ public class User
     [EmailAddress]
     public string Email { get; set; } = "";
     [Required]
-    public string PasswordHash { get; set; } = "";  
+    public string PasswordHash { get; set; } = "";
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? LastLogin { get; set; }
     public bool IsActive { get; set; } = true;
-
     public string FullName => $"{Firstname} {Lastname}";
+    public virtual UserProfile? UserProfile { get; set; }
 }

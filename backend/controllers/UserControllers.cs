@@ -47,6 +47,21 @@ public class UserControllers : ControllerBase  // ADDED : ControllerBase
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
+        // Now we need to create a function or a signalR that creates a profile after creating a user
+        // Create default UserProfile for the new user
+        var userProfile = new UserProfile
+        {
+            UserId = user.Id,
+            WakeUpTime = new TimeOnly(7, 0),  // Default 7 AM
+            SleepTime = new TimeOnly(23, 0),  // Default 11 PM
+            TimeZoneId = "UTC",
+            Occupation = Occupation.Student,  // Default occupation
+            LastUpdated = DateTime.UtcNow
+        };
+
+        _context.UserProfiles.Add(userProfile);
+        await _context.SaveChangesAsync();
+
         return Ok(new
         {
             message = "User registered successfully",
